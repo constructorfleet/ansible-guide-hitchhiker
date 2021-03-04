@@ -10,7 +10,7 @@
     state: directory
     path: "{{ hitchhiker_config.storage.internal }}"
   when:
-    - hitchhiker_config.storage.internal | default(False)
+    - hitchhiker_config.storage.internal is defined | default(False)
 
 - name: Template out the customization file
   template:
