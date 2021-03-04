@@ -10,14 +10,15 @@
     state: directory
     path: "{{ hitchhiker_config.storage.internal }}"
   when:
-    - hitchhiker_config.storage.internal is defined | default(False)
+    - hitchhiker_config.storage.internal is defined
+    - hitchhiker_config.storage.internal | default(False)
 
 - name: Template out the customization file
   template:
     src: customization.yaml.j2
     dest: "{{ hitchhiker_config.storage.config }}/customization.yaml"
 
-- name: Tempalte out the configuration file
+- name: Template out the configuration file
   template:
     src: configuration.yaml.j2
     dest: "{{ hitchhiker_config.storage.config }}/configuration.yaml"
