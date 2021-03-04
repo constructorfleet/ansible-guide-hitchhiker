@@ -33,20 +33,24 @@ hitchhiker_default_container_mounts:
   - "{{ hitchhiker_config.storage.public is defined | ternary(hitchhiker_config.storage.public ~ ':/config/www', None) }}"
   - /etc/localtime:/etc/localtime:ro
 
-hitchhiker_image:
-  repo: https://github.com/constructorfleet/homeassistant-loader-docker.git
-  branch: master
-  buildargs: "{{ hitchhiker_image_build_args }}"
+docker_build_images:
+  basehitchhiker:
+    repo: https://github.com/constructorfleet/homeassistant-loader-docker.git
+    branch: master
+    buildargs: "{{ hitchhiker_image_build_args }}"
 
-hitchhiker_container:
-  name: "{{ hitchhiker_config.name }}"
-  image: "hitchhiker_{{ hitchhiker_config.name | slugify }}"
-  description: "{{ hitchhiker_config.name | slugify }} integration"
-  container_name: "hitchhiker_{{ hitchhiker_config.name | slugify }}"
-  restart: unless-stopped
-  ports: "{{ hitchhiker_config.exposed_ports }}"
-  volumes: "{{ hitchhiker_default_container_mounts | select('ne', None) | list | unique }}"
-  logging:
-    driver: journald
-    options:
-      tag: ha_appletv
+docker-containers:
+  hitchhiker:
+    name: "{{ hitchhiker_config.name }}"
+    image: basehitchhiker
+    description: "{{ hitchhiker_config.name | slugify }} integration"
+    container_name: "hitchhiker_{{ hitchhiker_config.name | slugify }}"
+    restart: unless-stopped
+    networks:
+      - basehitchhiker
+    ports: "{{ hitchhiker_config.exposed_ports }}"
+    volumes: "{{ hitchhiker_default_container_mounts | select('ne', None) | list | unique }}"
+    logging:
+      driver: journald
+      options:
+        tag: "{{ hitchhiker_config.name }}"
