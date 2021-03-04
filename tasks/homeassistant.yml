@@ -1,0 +1,23 @@
+---
+
+- name: Ensure the configuration path exists
+  file:
+    state: directory
+    path: "{{ hitchhiker_config.storage.config }}"
+
+- name: Ensure the internal path exists
+  file:
+    state: directory
+    path: "{{ hitchhiker_config.storage.internal }}"
+  when:
+    - hitchhiker_config.storage.internal | default(False)
+
+- name: Template out the customization file
+  template:
+    src: customization.yaml.j2
+    dest: "{{ hitchhiker_config.storage.config }}/customization.yaml"
+
+- name: Tempalte out the configuration file
+  template:
+    src: configuration.yaml.j2
+    dest: "{{ hitchhiker_config.storage.config }}/configuration.yaml"

@@ -39,6 +39,7 @@ hitchhiker_image:
   buildargs: "{{ hitchhiker_image_build_args }}"
 
 hitchhiker_container:
+  name: "{{ hitchhiker_config.name }}"
   image: "hitchhiker_{{ hitchhiker_config.name | slugify }}"
   description: "{{ hitchhiker_config.name | slugify }} integration"
   container_name: "hitchhiker_{{ hitchhiker_config.name | slugify }}"
