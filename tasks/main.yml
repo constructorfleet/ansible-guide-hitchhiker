@@ -6,5 +6,6 @@
     - "{{ (hitchhiker_type | lower) == 'homeassistant' }}"
 
 - name: Create/Set-up docker networks and containers
-  import_role:
+  include_role:
     name: docker
+
