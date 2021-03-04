@@ -16,7 +16,7 @@ hitchhiker_config:
     altitude: "{{ hitchhiker_altitude | default(omit) }}"
   url:
     external: "{{ hitchhiker_external_url | default (omit) }}"
-    internal: "{{ hitchhiker_external_url | default (omit) }}"
+    internal: "{{ hitchhiker_internal_url | default (omit) }}"
   storage:
     internal: "{{ hitchhiker_internal_storage_dir | default(omit) }}"
     config: "{{ hitchhiker_config_dir | default('/config') }}"

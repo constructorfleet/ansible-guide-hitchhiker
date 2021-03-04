@@ -11,6 +11,8 @@ hitchhiker_altitude: 0
 # hitchhiker_internal_url: http://localhost/
 
 #hitchhiker_configure_homekit: False
+hitchhiker_external_url: http://deepthought.home.prettybaked.com:9090
+hitchhiker_internal_url: http://deepthought.home.prettybaked.com:9090
 
 hitchhiker_build_arch: amd64
 hitchhiker_base_version: master
