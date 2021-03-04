@@ -8,13 +8,13 @@
 - debug:
     var: hitchhiker_config.storage.internal
 
-- name: Ensure the internal path exists
-  file:
-    state: directory
-    path: "{{ hitchhiker_config.storage.internal }}"
-  when:
-    - hitchhiker_config.storage.internal is defined
-    - hitchhiker_config.storage.internal | default(False)
+#- name: Ensure the internal path exists
+#  file:
+#    state: directory
+#    path: "{{ hitchhiker_config.storage.internal }}"
+#  when:
+#    - hitchhiker_config.storage.internal is defined
+#    - hitchhiker_config.storage.internal | default(False)
 
 - name: Template out the customization file
   template:
