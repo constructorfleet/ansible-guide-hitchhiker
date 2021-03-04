@@ -1,0 +1,28 @@
+homeassistant:
+    name: "{{ config.name }}"
+    customize: !include customization.yaml
+    latitude: "{{ config.gps.latitude | default(omit) }}"
+    longitude: "{{ config.gps.longitude | default(omit) }}"
+    altitude: "{{ config.gps.altitude | default(omit) }}"
+    unit_system: "{{ config.localization.unit_system | default('Imperial') }}"
+    temperature_unit: "{{ config.localization.temperature_unit | default('F') }}"
+    time_zone: "{{ config.timezone | default(omit) }}"
+    external_url: "{{ config.url.external | default(omit) }}"
+    internal_url: "{{ config.url.internal | default(omit) }}"
+    allowlist_external_dirs: "{{ config.storage.public | default(omit) }}"
+
+logger:
+  default: '{{ default_log_level | default("DEBUG") }}'
+  logs: '{{ component_log_levels is defined | ternary(component_log_levels, omit) }}'
+
+api:
+
+frontend:
+
+lovelace:
+
+http:
+
+{% if integration_configration is defined %}
+{{ integration_configuration }}
+{% endif %}
