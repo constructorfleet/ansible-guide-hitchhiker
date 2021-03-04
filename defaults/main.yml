@@ -1,2 +1,18 @@
 ---
-# defaults file for ansible-guide-hitchhiker
+
+hitchhiker_type: homeassistant
+hitchhiker_name: DEMO
+hitchhiker_timezone: America/Denver
+hitchhiker_unit_system: Imperial
+hitchhiker_latitude: 0
+hitchhiker_longitude: 0
+hitchhiker_altitude: 0
+# hitchhiker_external_url: http://127.0.0.1/
+# hitchhiker_internal_url: http://localhost/
+
+hitchhiker_configure_homekit: False
+
+hitchhiker_build_arch: amd64
+hitchhiker_base_version: master
+hitchhiker_build_args: {}
+

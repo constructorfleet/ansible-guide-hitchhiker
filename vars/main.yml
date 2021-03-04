@@ -1,2 +1,50 @@
 ---
-# vars file for ansible-guide-hitchhiker
+
+valid_hitchhiker_types:
+  - homeassistant
+
+hitchhiker_config:
+  type: "{{ hitchhiker_type }}"
+  name: "{{ hitchhiker_name }}"
+  timezone: "{{ hitchhiker_timezone | default(omit) }}"
+  gps:
+    latitude: "{{ hitchhiker_latitude | default(omit) }}"
+    longitude: "{{ hitchhiker_longitude | default(omit) }}"
+    altitude: "{{ hitchhiker_altitude | default(omit) }}"
+  url:
+    external: "{{ hitchhiker_external_url | default (omit) }}"
+    internal: "{{ hitchhiker_external_url | default (omit) }}"
+  storage:
+    internal: "{{ hitchhiker_internal_storage_dir | default(omit) }}"
+    config: "{{ hitchhiker_config_dir | default('/config') }}"
+    public: "{{ hitchhiker_public_storage_dir | default(omit) }}"
+
+hitchiker_default_build_args:
+  BUILD_FROM: "homeassistant/{{ hitchhiker_build_arch }}-base-python:3.8-alpine3.12"
+  LOADER_VERSION: "{{ hitchhiker_base_version }}"
+  BUILD_ARCH: "{{ hitchhiker_build_arch }}"
+hitchhiker_image_build_args: "{{ hitchhiker_build_args | default({}) | combine(hitchhiker_default_build_args) }}"
+hitchhiker_default_container_mounts:
+  - "{{ hitchhiker_config.storage.config }}:/config"
+  - "{{ hitchhiker_config.storage.internal is defined | ternary(hitchhiker_config.storage.internal ~ ':/config/.storage', None) }}"
+  - "{{ hitchhiker_config.storage.public is defined | ternary(hitchhiker_config.storage.public ~ ':/config/www', None) }}"
+  - /etc/localtime:/etc/localtime:ro
+
+hitchhiker_image:
+  repo: https://github.com/constructorfleet/homeassistant-loader-docker.git
+  branch: master
+  buildargs: "{{ hitchhiker_image_build_args }}"
+
+hitchhiker_container:
+  image: "hitchhiker_{{ hitchhiker_config.name | slugify }}"
+  description: "{{ hitchhiker_config.name | slugify }} integration"
+  container_name: "hitchhiker_{{ hitchhiker_config.name | slugify }}"
+  restart: unless-stopped
+  ports:
+    - 9090:8123
+    - 51831:51831
+  volumes: "{{ hitchhiker_default_container_mounts | select('ne', None) | list | unique }}"
+  logging:
+    driver: journald
+    options:
+      tag: ha_appletv
