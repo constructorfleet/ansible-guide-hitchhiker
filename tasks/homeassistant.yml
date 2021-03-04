@@ -18,10 +18,10 @@
 
 - name: Template out the customization file
   template:
-    src: customization.yaml.j2
+    src: homeassistant/customization.yaml.j2
     dest: "{{ hitchhiker_config.storage.config }}/customization.yaml"
 
 - name: Template out the configuration file
   template:
-    src: configuration.yaml.j2
+    src: homeassistant/configuration.yaml.j2
     dest: "{{ hitchhiker_config.storage.config }}/configuration.yaml"
