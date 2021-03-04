@@ -26,7 +26,7 @@ hitchiker_default_build_args:
   BUILD_FROM: "homeassistant/{{ hitchhiker_build_arch }}-base-python:3.8-alpine3.12"
   LOADER_VERSION: "{{ hitchhiker_base_version }}"
   BUILD_ARCH: "{{ hitchhiker_build_arch }}"
-hitchhiker_image_build_args: "{{ hitchhiker_build_args | default({}) | combine((hitchhiker_default_build_args | defaults({}))) }}"
+hitchhiker_image_build_args: "{{ hitchhiker_build_args | default({}) | combine((hitchhiker_default_build_args | default({}))) }}"
 hitchhiker_default_container_mounts:
   - "{{ hitchhiker_config.storage.config }}:/config"
   - "{{ hitchhiker_config.storage.internal is defined | ternary(hitchhiker_config.storage.internal ~ ':/config/.storage', None) }}"
