@@ -10,9 +10,14 @@ hitchhiker_altitude: 0
 # hitchhiker_external_url: http://127.0.0.1/
 # hitchhiker_internal_url: http://localhost/
 
-hitchhiker_configure_homekit: False
+#hitchhiker_configure_homekit: False
 
 hitchhiker_build_arch: amd64
 hitchhiker_base_version: master
 hitchhiker_build_args: {}
+
+hitchhiker_network_mode: bridge
+hitchhiker_exposed_ports:
+  - 9090:8123
+  - 51831:51831
 

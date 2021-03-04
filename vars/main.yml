@@ -7,6 +7,9 @@ hitchhiker_config:
   type: "{{ hitchhiker_type }}"
   name: "{{ hitchhiker_name }}"
   timezone: "{{ hitchhiker_timezone | default(omit) }}"
+  exposed_ports: "{{ hitchhiker_exposed_ports | default(omit) }}"
+  network_mode: "{{ hitchhiker_network_mode | default('bridge') }}"
+  networks: "{{ hitchhiker_neworks | default(omit) }}"
   gps:
     latitude: "{{ hitchhiker_latitude | default(omit) }}"
     longitude: "{{ hitchhiker_longitude | default(omit) }}"
@@ -40,9 +43,7 @@ hitchhiker_container:
   description: "{{ hitchhiker_config.name | slugify }} integration"
   container_name: "hitchhiker_{{ hitchhiker_config.name | slugify }}"
   restart: unless-stopped
-  ports:
-    - 9090:8123
-    - 51831:51831
+  ports: "{{ hitchhiker_config.exposed_ports }}"
   volumes: "{{ hitchhiker_default_container_mounts | select('ne', None) | list | unique }}"
   logging:
     driver: journald

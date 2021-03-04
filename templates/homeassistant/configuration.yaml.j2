@@ -1,15 +1,15 @@
 homeassistant:
-    name: "{{ config.name }}"
+    name: "{{ hitchhiker_config.name }}"
     customize: !include customization.yaml
-    latitude: "{{ config.gps.latitude | default(omit) }}"
-    longitude: "{{ config.gps.longitude | default(omit) }}"
-    altitude: "{{ config.gps.altitude | default(omit) }}"
-    unit_system: "{{ config.localization.unit_system | default('Imperial') }}"
-    temperature_unit: "{{ config.localization.temperature_unit | default('F') }}"
-    time_zone: "{{ config.timezone | default(omit) }}"
-    external_url: "{{ config.url.external | default(omit) }}"
-    internal_url: "{{ config.url.internal | default(omit) }}"
-    allowlist_external_dirs: "{{ config.storage.public | default(omit) }}"
+    latitude: "{{ hitchhiker_config.gps.latitude | default(omit) }}"
+    longitude: "{{ hitchhiker_config.gps.longitude | default(omit) }}"
+    altitude: "{{ hitchhiker_config.gps.altitude | default(omit) }}"
+    unit_system: "{{ hitchhiker_config.localization.unit_system | default('Imperial') }}"
+    temperature_unit: "{{ hitchhiker_config.localization.temperature_unit | default('F') }}"
+    time_zone: "{{ hitchhiker_config.timezone | default(omit) }}"
+    external_url: "{{ hitchhiker_config.url.external | default(omit) }}"
+    internal_url: "{{ hitchhiker_config.url.internal | default(omit) }}"
+    allowlist_external_dirs: "{{ hitchhiker_config.storage.public | default(omit) }}"
 
 logger:
   default: '{{ default_log_level | default("DEBUG") }}'

@@ -1,2 +1,10 @@
 ---
-# tasks file for ansible-guide-hitchhiker
+
+- name: Deploy/Update a Home-Assistant integration
+  import_tasks: homeassistant.yml
+  when:
+    - "{{ hitchhiker_type | lower == 'homeassistant' }}"
+
+- name: Create/Set-up docker networks and containers
+  import_role:
+    name: docker
