@@ -49,7 +49,7 @@ docker_build_images:
     buildargs: "{{ hitchhiker_image_build_args }}"
     target: integration
 
-docker-containers: |
+docker_containers: |
   {
     "hitchhiker_{{ hitchhiker_config.name }}": {
       "name: "{{ hitchhiker_config.name }}",
