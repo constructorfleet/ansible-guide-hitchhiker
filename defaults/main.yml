@@ -24,3 +24,5 @@ hitchhiker_exposed_ports:
   - 9090:8123
   - "{{ hitchhiker_homekit_ports }}"
 
+homeassistant_components: []
+
