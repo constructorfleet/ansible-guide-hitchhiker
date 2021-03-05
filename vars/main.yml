@@ -22,7 +22,7 @@ hitchhiker_config:
     config: "{{ hitchhiker_config_dir | default('/config') }}"
     public: "{{ hitchhiker_public_storage_dir | default(omit) }}"
 
-hitchiker_default_build_args:
+hitchhiker_default_build_args:
   BUILD_FROM: "homeassistant/{{ hitchhiker_build_arch }}-base-python:3.8-alpine3.12"
   LOADER_VERSION: "{{ hitchhiker_base_version }}"
   BUILD_ARCH: "{{ hitchhiker_build_arch }}"
