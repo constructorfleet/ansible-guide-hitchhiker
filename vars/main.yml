@@ -38,9 +38,15 @@ docker_build_images:
     repo: https://github.com/constructorfleet/homeassistant-loader-docker.git
     branch: master
     buildargs: "{{ hitchhiker_image_build_args }}"
+    target: base
+  hitchhikerintegration:
+    repo: https://github.com/constructorfleet/homeassistant-loader-docker.git
+    branch: master
+    buildargs: "{{ hitchhiker_image_build_args }}"
+    target: integration
 
 docker-containers:
-  basehitchhiker:
+  hitchhikerintegration:
     name: "{{ hitchhiker_config.name }}"
     image: basehitchhiker
     description: "{{ hitchhiker_config.name | slugify }} integration"
