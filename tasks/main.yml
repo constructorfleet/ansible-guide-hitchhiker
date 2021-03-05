@@ -19,13 +19,13 @@
 
 - name: Wait for container to start
   wait_for:
-    host: '{{ ansible_default_ipv4.address }}'
+    host: '{{ ansible_fqdn }}'
     port: '{{ homeassistant_port | int }}'
     sleep: 2
 
 - name: Set homeassistant_url fact
   set_fact:
-    homeassistant_url: '{{ hitchhiker_uri_scheme }}://{{ ansible_hostname }}:{{ homeassistant_port }}'
+    homeassistant_url: '{{ hitchhiker_uri_scheme }}://{{ ansible_fqdn }}:{{ homeassistant_port }}'
 
 - name: Create Home-Assistant admin user
   uri:
