@@ -57,14 +57,14 @@
     docker_containers: |
       {
         "hitchhiker_{{ hitchhiker_config.name }}": {
-          "name: "{{ hitchhiker_config.name }}",
+          "name": "{{ hitchhiker_config.name }}",
           "image": "hitchhikerintegration",
           "description": "{{ hitchhiker_config.name }} integration",
           "container_name": "hitchhiker_{{ hitchhiker_config.name | lower | replace('-', '_') | replace(' ', '_') }}",
           "restart: "unless-stopped",
-          "networks: {{ hitchhiker_networks }},
-          "ports": {{ hitchhiker_config.exposed_ports }},
-          "volumes": {{ hitchhiker_default_container_mounts | select('ne', None) |  | list | unique }},
+          "networks: {{ hitchhiker_networks | default([]) }},
+          "ports": {{ hitchhiker_config.exposed_ports | default([]) }},
+          "volumes": {{ hitchhiker_default_container_mounts | select('ne', None) | select('ne', '') | list | unique }},
           "logging": {
             "driver": "journald",
             "options": {
