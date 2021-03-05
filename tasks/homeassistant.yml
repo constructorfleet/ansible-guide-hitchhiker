@@ -24,10 +24,10 @@
       BUILD_FROM: "homeassistant/{{ hitchhiker_build_arch }}-base-python:3.8-alpine3.12"
       LOADER_VERSION: "{{ hitchhiker_base_version }}"
       BUILD_ARCH: "{{ hitchhiker_build_arch }}"
-      COMPONENTS: >
-        {% for component in (homeassistant_components | default([])) %}
-        {{ component.source }} {{ component.name }} {{ component.version }}\n
-        {% endfor %}
+      COMPONENTS: "{{ homeassistant_components | default([]) | join('\n') }}"
+#        {% for component in (homeassistant_components | default([])) %}
+#        {{ component.source }} {{ component.name }} {{ component.version }}\n
+#        {% endfor %}
 
 - name: Set build args
   set_fact:
