@@ -21,7 +21,7 @@
   wait_for:
     host: '{{ ansible_fqdn }}'
     port: '{{ homeassistant_port | int }}'
-    sleep: 2
+    timeout: 45
 
 - name: Set homeassistant_url fact
   set_fact:
