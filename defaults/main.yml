@@ -18,11 +18,16 @@ hitchhiker_build_arch: amd64
 hitchhiker_base_version: master
 hitchhiker_build_args: {}
 
+hitchhiker_uri_scheme: http
 hitchhiker_network_mode: bridge
 hitchhiker_homekit_ports: 81531
 hitchhiker_exposed_ports:
-  - 9090:8123
+  - "{{ homeassistant_port }}:8123"
   - "{{ hitchhiker_homekit_ports }}"
 
 homeassistant_components: []
+homeassistant_port: 9090
+homeassistant_name: Admin User
+homeassistant_username: admin
+homeassistant_password: admin
 
