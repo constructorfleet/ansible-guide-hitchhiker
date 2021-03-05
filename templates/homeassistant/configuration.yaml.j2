@@ -30,5 +30,5 @@ lovelace:
 http:
 
 {% if integration_configuration is defined %}
-{{ integration_configuration }}
+{{ integration_configuration | to_nice_yaml(indent=2) }}
 {% endif %}
