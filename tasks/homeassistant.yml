@@ -29,6 +29,9 @@
         {{ component.source }} {{ component.name }} {{ component.version }}\n
         {% endfor %}
     hitchhiker_image_build_args: "{{ hitchhiker_build_args | default({}) | combine((hitchhiker_default_build_args | default({}))) }}"
+
+- name: Set facts from config
+  set_fact:
     hitchhiker_default_container_mounts:
       - "{{ hitchhiker_config.storage.config }}:/config"
       - "{{ hitchhiker_config.storage.internal is defined | ternary(hitchhiker_config.storage.internal ~ ':/config/.storage', None) }}"
