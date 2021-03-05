@@ -6,7 +6,7 @@
     path: "{{ hitchhiker_config.storage.config }}"
 
 - debug:
-    var: docker_containers
+    var: hostvars[inventory_hostname]
 
 #- name: Ensure the internal path exists
 #  file:
