@@ -17,9 +17,9 @@
         external: "{{ hitchhiker_external_url | default (None) }}"
         internal: "{{ hitchhiker_internal_url | default (None) }}"
       storage:
-#        internal: "{{ hitchhiker_internal_storage_dir | default(None) }}"
+        internal: "{{ hitchhiker_internal_storage_dir | default(None) }}"
         config: "{{ hitchhiker_config_dir | default('/config') }}"
-#        public: "{{ hitchhiker_public_storage_dir | default(None) }}"
+        public: "{{ hitchhiker_public_storage_dir | default(None) }}"
     hitchhiker_default_build_args:
       BUILD_FROM: "homeassistant/{{ hitchhiker_build_arch }}-base-python:3.8-alpine3.12"
       LOADER_VERSION: "{{ hitchhiker_base_version }}"
@@ -83,7 +83,7 @@
 - debug:
     var: docker_containers
 - debug:
-    var: hitchhiker_networks
+    var: hitchhiker_config
 
 #- name: Ensure the internal path exists
 #  file:
