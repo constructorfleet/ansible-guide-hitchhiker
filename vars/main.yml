@@ -6,21 +6,21 @@ valid_hitchhiker_types:
 hitchhiker_config:
   type: "{{ hitchhiker_type }}"
   name: "{{ hitchhiker_name }}"
-  timezone: "{{ hitchhiker_timezone | default(omit) }}"
-  exposed_ports: "{{ hitchhiker_exposed_ports | default(omit) }}"
+  timezone: "{{ hitchhiker_timezone | default(None) }}"
+  exposed_ports: "{{ hitchhiker_exposed_ports | default(None) }}"
   network_mode: "{{ hitchhiker_network_mode | default('bridge') }}"
-  networks: "{{ hitchhiker_neworks | default(omit) }}"
+  networks: "{{ hitchhiker_neworks | default(None) }}"
   gps:
-    latitude: "{{ hitchhiker_latitude | default(omit) }}"
-    longitude: "{{ hitchhiker_longitude | default(omit) }}"
-    altitude: "{{ hitchhiker_altitude | default(omit) }}"
+    latitude: "{{ hitchhiker_latitude | default(None) }}"
+    longitude: "{{ hitchhiker_longitude | default(None) }}"
+    altitude: "{{ hitchhiker_altitude | default(None) }}"
   url:
-    external: "{{ hitchhiker_external_url | default (omit) }}"
-    internal: "{{ hitchhiker_internal_url | default (omit) }}"
+    external: "{{ hitchhiker_external_url | default (None) }}"
+    internal: "{{ hitchhiker_internal_url | default (None) }}"
   storage:
-    internal: "{{ hitchhiker_internal_storage_dir | default(omit) }}"
+    internal: "{{ hitchhiker_internal_storage_dir | default(None) }}"
     config: "{{ hitchhiker_config_dir | default('/config') }}"
-    public: "{{ hitchhiker_public_storage_dir | default(omit) }}"
+    public: "{{ hitchhiker_public_storage_dir | default(None) }}"
 
 hitchhiker_default_build_args:
   BUILD_FROM: "homeassistant/{{ hitchhiker_build_arch }}-base-python:3.8-alpine3.12"
