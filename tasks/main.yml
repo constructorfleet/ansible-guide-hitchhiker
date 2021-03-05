@@ -35,7 +35,7 @@
     headers:
       Host: "{{ homeassistant_url_schemeless }}"
       Origin: "{{ homeassistant_url_schemeless }}"
-    body_format: form-urlencoded
+    body_format: raw
     body:
       client_id: "{{ (homeassistant_url ~ '/') | urlencode }}"
       name: "{{ homeassistant_name | default('admin')}}"
@@ -56,7 +56,7 @@
     headers:
       Host: "{{ homeassistant_url_schemeless }}"
       Origin: "{{ homeassistant_url_schemeless }}"
-    body_format: form-urlencoded
+    body_format: raw
     body:
       client_id: "{{ (homeassistant_url ~ '/') | urlencode }}"
       code: '{{ authorization_code }}'
