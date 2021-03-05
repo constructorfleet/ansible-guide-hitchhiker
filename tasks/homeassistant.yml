@@ -28,6 +28,9 @@
         {% for component in (homeassistant_components | default([])) %}
         {{ component.source }} {{ component.name }} {{ component.version }}\n
         {% endfor %}
+
+- name: Set build args
+  set_fact:
     hitchhiker_image_build_args: "{{ hitchhiker_build_args | default({}) | combine((hitchhiker_default_build_args | default({}))) }}"
 
 - name: Set facts from config
