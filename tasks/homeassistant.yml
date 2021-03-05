@@ -6,7 +6,9 @@
     path: "{{ hitchhiker_config.storage.config }}"
 
 - debug:
-    var: hostvars[inventory_hostname]
+    var: hitchhiker_config
+- debug:
+    var: hitchhiker_name
 
 #- name: Ensure the internal path exists
 #  file:
