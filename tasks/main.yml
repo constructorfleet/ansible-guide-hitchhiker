@@ -31,7 +31,7 @@
   uri:
     url: '{{ homeassistant_url }}/api/onboarding/users'
     method: POST
-    body_format: form-multipart
+    body_format: form-urlencoded
     body:
       client_id: "{{ homeassistant_url }}/"
       name: "{{ homeassistant_name | default('admin')}}"
@@ -49,7 +49,7 @@
   uri:
     url: '{{ homeassistant_url }}/api/auth/token'
     method: POST
-    body_format: form-multipart
+    body_format: form-urlencoded
     body:
       client_id: '{{ homeassistant_url }}/'
       code: '{{ authorization_code }}'
