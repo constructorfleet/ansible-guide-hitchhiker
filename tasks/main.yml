@@ -5,12 +5,12 @@
   when:
     - "{{ (hitchhiker_type | lower) == 'homeassistant' }}"
 
-- name: Create/Set-up docker networks and containers
-  include_role:
-    name: docker
-    apply:
-      vars:
-        docker_build_imags: '{{ docker_build_images }}'
-        BUILD_FROM: "{{ BUILD_FROM }}"
+#- name: Create/Set-up docker networks and containers
+#  include_role:
+#    name: docker
+#    apply:
+#      vars:
+#        docker_build_imags: '{{ docker_build_images }}'
+#        BUILD_FROM: "{{ BUILD_FROM }}"
 
 
