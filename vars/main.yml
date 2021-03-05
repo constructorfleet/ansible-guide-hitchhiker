@@ -37,6 +37,8 @@ hitchhiker_default_container_mounts:
   - "{{ hitchhiker_config.storage.public is defined | ternary(hitchhiker_config.storage.public ~ ':/config/www', None) }}"
   - /etc/localtime:/etc/localtime:ro
 
+docker_container_name: &containername "hitchhiker_{{ hitchhiker_config.name }}"
+
 docker_build_images:
   basehitchhiker:
     repo: https://github.com/constructorfleet/homeassistant-loader-docker.git
@@ -50,9 +52,9 @@ docker_build_images:
     target: integration
 
 docker-containers:
-  hitchhikerintegration:
+  *containername:
     name: "{{ hitchhiker_config.name }}"
-    image: basehitchhiker
+    image: hitchhikerintegration
     description: "{{ hitchhiker_config.name | slugify }} integration"
     container_name: "hitchhiker_{{ hitchhiker_config.name | slugify }}"
     restart: unless-stopped
