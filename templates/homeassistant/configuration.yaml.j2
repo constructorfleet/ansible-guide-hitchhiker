@@ -1,17 +1,25 @@
 homeassistant:
   name: "{{ hitchhiker_config.name }}"
   customize: !include customization.yaml
-  latitude: "{{ hitchhiker_config.gps.latitude | default(omit) }}"
-  longitude: "{{ hitchhiker_config.gps.longitude | default(omit) }}"
-  altitude: "{{ hitchhiker_config.gps.altitude | default(omit) }}"
-  unit_system: "{{ hitchhiker_config.localization.unit_system | default('Imperial') }}"
+  {% if hitchhiker_config.gps.latitude is defined and hitchhiker_config.gps.longitude is defined and hitchhiker_config.gps.altitude is defined %}
+  latitude: "{{ hitchhiker_config.gps.latitude }}"
+  longitude: "{{ hitchhiker_config.gps.longitude }}"
+  altitude: "{{ hitchhiker_config.gps.altitude }}"
+  {% endif %}
+  unit_system: "{{ hitchhiker_config.localization.unit_system | default('imperial') }}"
   temperature_unit: "{{ hitchhiker_config.localization.temperature_unit | default('F') }}"
-  time_zone: "{{ hitchhiker_config.timezone | default(omit) }}"
-  allowlist_external_dirs: "{{ hitchhiker_config.storage.public | default(omit) }}"
+  {% if hitchhiker_config.timezone is defined %}
+  time_zone: "{{ hitchhiker_config.timezone }}"
+  {% endif %}
+  {% if hitchhiker_config.storage.public is defined %}
+  allowlist_external_dirs: "{{ hitchhiker_config.storage.public }}"
+  {% endif %}
 
 logger:
   default: '{{ default_log_level | default("DEBUG") }}'
-  logs: '{{ component_log_levels is defined | ternary(component_log_levels, omit) }}'
+  {% if component_log_levels is defined %}
+  logs: '{{ component_log_levels }}'
+  {% endif %}
 
 api:
 
