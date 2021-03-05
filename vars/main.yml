@@ -58,7 +58,7 @@ docker-containers: |
       "container_name": "hitchhiker_{{ hitchhiker_config.name | slugify }}",
       "restart: "unless-stopped",
       "networks: [
-        "basehitchhiker"
+        "subetha_ftl_net"
       ],
       "ports": "{{ hitchhiker_config.exposed_ports }}",
       "volumes": "{{ hitchhiker_default_container_mounts | select('ne', None) | list | unique }}",
