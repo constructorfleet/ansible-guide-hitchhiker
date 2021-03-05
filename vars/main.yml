@@ -2,3 +2,5 @@
 
 valid_hitchhiker_types:
   - homeassistant
+
+auth_code_regex: ^.*"auth_code". "(.*)?".*$

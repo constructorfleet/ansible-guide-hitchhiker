@@ -51,7 +51,7 @@
 
 - name: Set authorization code fact
   set_fact:
-    authorization_code: '{{ user_onboarding.content | regex_replace("^.*\"auth_code\": \"(.*)?\".*$", "\\1") }}'
+    authorization_code: '{{ user_onboarding.content | regex_replace(auth_code_regex, "\\1") }}'
 
 - name: Set token creation payload fact
   set_fact:
