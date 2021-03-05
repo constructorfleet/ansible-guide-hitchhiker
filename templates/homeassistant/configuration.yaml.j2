@@ -12,7 +12,7 @@ homeassistant:
   time_zone: "{{ hitchhiker_config.timezone }}"
 {% endif %}
 {% if hitchhiker_config.storage.public is defined %}
-  allowlist_external_dirs: "{{ hitchhiker_config.storage.public | default([]) }}"
+  allowlist_external_dirs: {{ hitchhiker_config.storage.public | default([]) }}
 {% endif %}
 
 logger:
