@@ -54,7 +54,7 @@ docker_containers: |
     "hitchhiker_{{ hitchhiker_config.name }}": {
       "name: "{{ hitchhiker_config.name }}",
       "image": "hitchhikerintegration",
-      "description": "{{ hitchhiker_config.name | slugify }} integration",
+      "description": "{{ hitchhiker_config.name }} integration",
       "container_name": "hitchhiker_{{ hitchhiker_config.name | lower | replace('-', '_') | replace(' ', '_') }}",
       "restart: "unless-stopped",
       "networks: [
