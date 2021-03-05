@@ -18,7 +18,7 @@ homeassistant:
 logger:
   default: '{{ default_log_level | default("DEBUG") }}'
 {% if component_log_levels is defined %}
-  logs: '{{ component_log_levels }}'
+  logs: {{ component_log_levels | default({}) }}
 {% endif %}
 
 api:
