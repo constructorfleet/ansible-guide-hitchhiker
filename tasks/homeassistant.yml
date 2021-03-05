@@ -48,6 +48,9 @@
         branch: master
         buildargs: "{{ hitchhiker_image_build_args }}"
         target: integration
+
+- name: Set fact for docker container
+  set_fact:
     docker_containers: |
       {
         "hitchhiker_{{ hitchhiker_config.name }}": {
