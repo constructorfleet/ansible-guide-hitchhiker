@@ -80,9 +80,9 @@
     path: "{{ hitchhiker_config.storage.config }}"
 
 - debug:
-    var: hitchhiker_config
+    var: docker_containers
 - debug:
-    var: hitchhiker_name
+    var: hitchhiker_networks
 
 #- name: Ensure the internal path exists
 #  file:
