@@ -26,14 +26,18 @@
 - name: Set homeassistant_url fact
   set_fact:
     homeassistant_url: '{{ hitchhiker_uri_scheme }}://{{ ansible_fqdn }}:{{ homeassistant_port }}'
+    homeassistant_url_schemeless: '{{ ansible_fqdn }}:{{ homeassistant_port }}'
 
 - name: Create Home-Assistant admin user
   uri:
     url: '{{ homeassistant_url }}/api/onboarding/users'
     method: POST
+    headers:
+      Host: "{{ homeassistant_url_schemeless }}"
+      Origin: "{{ homeassistant_url_schemeless }}"
     body_format: form-urlencoded
     body:
-      client_id: "{{ homeassistant_url }}/"
+      client_id: "{{ (homeassistant_url ~ '/') | urlencode }}"
       name: "{{ homeassistant_name | default('admin')}}"
       username: "{{ homeassistant_username | default('admin')}}"
       password: "{{ homeassistant_password }}"
@@ -49,9 +53,12 @@
   uri:
     url: '{{ homeassistant_url }}/api/auth/token'
     method: POST
+    headers:
+      Host: "{{ homeassistant_url_schemeless }}"
+      Origin: "{{ homeassistant_url_schemeless }}"
     body_format: form-urlencoded
     body:
-      client_id: '{{ homeassistant_url }}/'
+      client_id: "{{ (homeassistant_url ~ '/') | urlencode }}"
       code: '{{ authorization_code }}'
       grant_type: authorization_code
     return_content: yes
