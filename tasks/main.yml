@@ -37,7 +37,7 @@
       Origin: "{{ homeassistant_url_schemeless }}"
     body_format: raw
     body:
-      client_id: "{{ (homeassistant_url ~ '/') | urlencode }}"
+      client_id: "{{ homeassistant_url }}/"
       name: "{{ homeassistant_name | default('admin')}}"
       username: "{{ homeassistant_username | default('admin')}}"
       password: "{{ homeassistant_password }}"
@@ -58,7 +58,7 @@
       Origin: "{{ homeassistant_url_schemeless }}"
     body_format: raw
     body:
-      client_id: "{{ (homeassistant_url ~ '/') | urlencode }}"
+      client_id: "{{ homeassistant_url }}/"
       code: '{{ authorization_code }}'
       grant_type: authorization_code
     return_content: yes
