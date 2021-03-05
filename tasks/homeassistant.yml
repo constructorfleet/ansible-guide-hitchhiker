@@ -80,11 +80,6 @@
     state: directory
     path: "{{ hitchhiker_config.storage.config }}"
 
-- debug:
-    var: docker_containers
-- debug:
-    var: hitchhiker_config
-
 #- name: Ensure the internal path exists
 #  file:
 #    state: directory
@@ -97,8 +92,10 @@
   template:
     src: homeassistant/customization.yaml.j2
     dest: "{{ hitchhiker_config.storage.config }}/customization.yaml"
+  register: customization_file
 
 - name: Template out the configuration file
   template:
     src: homeassistant/configuration.yaml.j2
     dest: "{{ hitchhiker_config.storage.config }}/configuration.yaml"
+  register: configuration_file

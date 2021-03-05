@@ -8,9 +8,13 @@
 - name: Create/Set-up docker networks and containers
   include_role:
     name: docker
-#    apply:
-#      vars:
-#        docker_build_imags: '{{ docker_build_images }}'
-#        BUILD_FROM: "{{ BUILD_FROM }}"
+
+- name: Restart container if needed
+  systemd:
+    name: "docker-hitchhiker_{{ hitchhiker_config.name }}"
+    state: restarted
+  when:
+    - docker_service is not changed
+    - customization_file is changed or configuration_file is changed
 
 
