@@ -16,11 +16,6 @@
 #    - hitchhiker_config.storage.internal is defined
 #    - hitchhiker_config.storage.internal | default(False)
 
-- name: Template out the components file
-  template:
-    src: components.j2
-    dest: /tmp/components
-
 - name: Template out the customization file
   template:
     src: homeassistant/customization.yaml.j2
