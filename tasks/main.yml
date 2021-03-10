@@ -28,6 +28,19 @@
     homeassistant_url: '{{ hitchhiker_uri_scheme }}://{{ ansible_fqdn }}:{{ homeassistant_port }}'
     homeassistant_url_schemeless: '{{ ansible_fqdn }}:{{ homeassistant_port }}'
 
+- name: Get onboarding status
+  uri:
+    url: '{{ homeassistant_url }}/api/onboarding'
+    method: GET
+    headers:
+      Host: "{{ homeassistant_url_schemeless }}"
+      Origin: "{{ homeassistant_url_schemeless }}"
+    return_content: yes
+  register: onboarding_status
+
+- debug:
+    var: onboarding_status
+
 - name: Set user creation payload fact
   set_fact:
     create_user_payload:
