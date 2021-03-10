@@ -28,15 +28,19 @@
     homeassistant_url: '{{ hitchhiker_uri_scheme }}://{{ ansible_fqdn }}:{{ homeassistant_port }}'
     homeassistant_url_schemeless: '{{ ansible_fqdn }}:{{ homeassistant_port }}'
 
-- name: Get onboarding status
+- name: Wait for the container to start
   uri:
     url: '{{ homeassistant_url }}/api/onboarding'
+    status_code: 200
     method: GET
     headers:
       Host: "{{ homeassistant_url_schemeless }}"
       Origin: "{{ homeassistant_url_schemeless }}"
     return_content: yes
   register: onboarding_status
+  until: result.status == 200
+  retries: 60
+  delay: 1
 
 - debug:
     var: onboarding_status
