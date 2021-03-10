@@ -51,7 +51,7 @@
       client_id: "{{ homeassistant_url }}/"
       name: "{{ homeassistant_name | default('admin')}}"
       username: "{{ homeassistant_username | default('admin')}}"
-      password: "{{ homeassistant_password }}"
+      password: "{{ homeassistant_password | replace('\n', '') }}"
       language: en
 
 - name: Create Home-Assistant admin user
