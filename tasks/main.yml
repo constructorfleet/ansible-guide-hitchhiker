@@ -38,7 +38,7 @@
       Origin: "{{ homeassistant_url_schemeless }}"
     return_content: yes
   register: onboarding_status
-  until: result.status == 200
+  until: onboarding_status.status == 200
   retries: 60
   delay: 1
 
