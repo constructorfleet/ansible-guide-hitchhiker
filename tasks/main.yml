@@ -1,8 +1,7 @@
 ---
 
 - name: Verify variables are valid and set
-  include_tasks:
-    file: valdidate_variables.yml
+  include_tasks: valdidate_variables.yml
 
 - name: Set configuration data fact
   set_fact:
