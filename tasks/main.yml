@@ -42,6 +42,7 @@
     loop_var: path
   when:
     - path != None
+    - path != ''
     - hitchhiker_recreate | default(False)
 
 - name: Remove all configuration if recreating
@@ -56,6 +57,7 @@
     loop_var: path
   when:
     - path != None
+    - path != ''
 
 - name: Set build args
   set_fact:
