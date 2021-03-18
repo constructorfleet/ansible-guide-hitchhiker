@@ -33,6 +33,7 @@
 - name: Remove all configuration if recreating
   file:
     state: absent
+    path: "{{ path }}"
   loop:
     - "{{ hitchhiker_config.storage.config | default(None) }}"
     - "{{ hitchhiker_config.storage.internal | default(None) }}"
@@ -41,6 +42,7 @@
     loop_var: path
   when:
     - path != None
+    - hitchhiker_recreate | default(False)
 
 - name: Remove all configuration if recreating
   file:
