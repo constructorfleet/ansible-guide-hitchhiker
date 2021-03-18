@@ -47,6 +47,7 @@
 - name: Remove all configuration if recreating
   file:
     state: directory
+    path: "{{ path }}"
   loop:
     - "{{ hitchhiker_config.storage.config | default(None) }}"
     - "{{ hitchhiker_config.storage.internal | default(None) }}"
