@@ -8,7 +8,7 @@
 
 - name: Validate ui port for Hitchhiker
   assert:
-    that: hitchhiker_exposed_ui_port in range(0, 65353)
+    that: (hitchhiker_exposed_ui_port | int) in range(0, 65353)
     success_msg: "Valid Hitchhiker UI Port: {{ hitchhiker_exposed_ui_port }}."
     fail_msg: "Invalid Hitchiker UI Port: {{ hitchhiker_exposed_ui_port }}, valid options are between 0 and 65353."
 
