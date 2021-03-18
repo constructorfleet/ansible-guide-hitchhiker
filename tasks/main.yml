@@ -1,7 +1,66 @@
 ---
 
+- name: Verify variables are valid and set
+  include_tasks:
+    file: valdidate_variables.yml
+
+- name: Set configuration data fact
+  set_fact:
+    hitchhiker_config:
+      type: "{{ hitchhiker_type }}"
+      name: "{{ hitchhiker_name }}"
+      timezone: "{{ hitchhiker_timezone | default(None) }}"
+      exposed_ports: "{{ ((hitchhiker_exposed_ports | default([])) + [hitchhiker_exposed_ui_port | int] }}"
+      ui_port: "{{ hitchhiker_exposed_ui_port | int }}"
+      network_mode: "{{ hitchhiker_network_mode | default('bridge') }}"
+      networks: "{{ hitchhiker_neworks | default(None) }}"
+      gps:
+        latitude: "{{ hitchhiker_latitude | default(None) }}"
+        longitude: "{{ hitchhiker_longitude | default(None) }}"
+        altitude: "{{ hitchhiker_altitude | default(None) }}"
+      url:
+        external: "{{ hitchhiker_external_url | default (None) }}"
+        internal: "{{ hitchhiker_internal_url | default (None) }}"
+      storage:
+        internal: "{{ hitchhiker_internal_storage_dir | default(None) }}"
+        config: "{{ hitchhiker_integration_config_dir }}"
+        public: "{{ hitchhiker_public_storage_dir | default(None) }}"
+    hitchhiker_default_build_args:
+      BUILD_FROM: "{{ hitchhiker_build_from }}"
+      LOADER_VERSION: "{{ hitchhiker_base_version }}"
+      BUILD_ARCH: "{{ hitchhiker_build_arch }}"
+      COMPONENTS: "{{ hitchhiker_components | default([]) | join('\n') }}"
+
+- name: Remove all configuration if recreating
+  file:
+    state: absent
+  loop:
+    - "{{ hitchhiker_config.storage.config | default(None) }}"
+    - "{{ hitchhiker_config.storage.internal | default(None) }}"
+    - "{{ hitchhiker_config.storage.public | default(None) }}"
+  loop_control:
+    var: path
+  when:
+    - path != None
+
+- name: Remove all configuration if recreating
+  file:
+    state: directory
+  loop:
+    - "{{ hitchhiker_config.storage.config | default(None) }}"
+    - "{{ hitchhiker_config.storage.internal | default(None) }}"
+    - "{{ hitchhiker_config.storage.public | default(None) }}"
+  loop_control:
+    var: path
+  when:
+    - path != None
+
+- name: Set build args
+  set_fact:
+    hitchhiker_image_build_args: "{{ hitchhiker_build_args | default({}) | combine((hitchhiker_default_build_args | default({}))) }}"
+
 - name: Deploy/Update a Home-Assistant integration
-  import_tasks: homeassistant.yml
+  import_tasks: homeassistant/configure.yml
   when:
     - (hitchhiker_type | lower) == 'homeassistant'
 
@@ -20,77 +79,15 @@
 - name: Wait for container to start
   wait_for:
     host: '{{ ansible_fqdn }}'
-    port: '{{ homeassistant_port | int }}'
+    port: '{{ hitchhiker_config.exposed_ports | first | default(omit) }}'
     timeout: 45
 
-- name: Set homeassistant_url fact
+- name: Set hitchhiker url fact
   set_fact:
-    homeassistant_url: '{{ hitchhiker_uri_scheme }}://{{ ansible_fqdn }}:{{ homeassistant_port }}'
-    homeassistant_url_schemeless: '{{ ansible_fqdn }}:{{ homeassistant_port }}'
+    hitchhiker_url: '{{ hitchhiker_uri_scheme }}://{{ ansible_fqdn }}{{ hitchhiker_config.exposed_ports  :{{ homeassistant_port }}'
+    hitchhiker_url_schemeless: '{{ ansible_fqdn }}:{{ homeassistant_port }}'
 
-- name: Wait for the container to start
-  uri:
-    url: '{{ homeassistant_url }}/api/onboarding'
-    status_code: 200
-    method: GET
-    headers:
-      Host: "{{ homeassistant_url_schemeless }}"
-      Origin: "{{ homeassistant_url_schemeless }}"
-    return_content: yes
-  register: onboarding_status
-  until: onboarding_status.status == 200
-  retries: 60
-  delay: 1
 
-- debug:
-    var: onboarding_status
-
-- name: Set user creation payload fact
-  set_fact:
-    create_user_payload:
-      client_id: "{{ homeassistant_url }}/"
-      name: "{{ homeassistant_name | default('admin')}}"
-      username: "{{ homeassistant_username | default('admin')}}"
-      password: "{{ homeassistant_password | replace('\n', '') }}"
-      language: en
-
-- name: Create Home-Assistant admin user
-  uri:
-    url: '{{ homeassistant_url }}/api/onboarding/users'
-    method: POST
-    headers:
-      Host: "{{ homeassistant_url_schemeless }}"
-      Origin: "{{ homeassistant_url_schemeless }}"
-    body_format: raw
-    body: '{{ create_user_payload | to_json }}'
-    return_content: yes
-  register: user_onboarding
-
-- name: Set authorization code fact
-  set_fact:
-    authorization_code: '{{ user_onboarding.content | regex_replace(auth_code_regex, "\1") }}'
-
-- name: Set token creation payload fact
-  set_fact:
-    token_creation_payload:
-      client_id: "{{ homeassistant_url }}/"
-      code: '{{ authorization_code }}'
-      grant_type: authorization_code
-
-- name: Get refresh token for admin user
-  uri:
-    url: '{{ homeassistant_url }}/api/auth/token'
-    method: POST
-    headers:
-      Host: "{{ homeassistant_url_schemeless }}"
-      Origin: "{{ homeassistant_url_schemeless }}"
-    body_format: raw
-    body: "{{ token_creation_payload | to_json }}"
-    return_content: yes
-  register: refresh_token
-
-- debug:
-    var: refresh_token
 
 
 

@@ -1,5 +1,5 @@
 ---
-
+hitchhiker_recreate: False
 hitchhiker_type: homeassistant
 hitchhiker_name: DEMO
 hitchhiker_timezone: America/Denver
@@ -14,20 +14,23 @@ hitchhiker_altitude: 0
 hitchhiker_external_url: http://deepthought.home.prettybaked.com:9090
 hitchhiker_internal_url: http://deepthought.home.prettybaked.com:9090
 
+hitchhiker_integration_config_dir: /tmp/config
+
 hitchhiker_build_arch: amd64
 hitchhiker_base_version: master
 hitchhiker_build_args: {}
 
 hitchhiker_uri_scheme: http
 hitchhiker_network_mode: bridge
-hitchhiker_homekit_ports: 81531
+hitchhiker_homekit_port: 81531
+hitchhiker_exposed_ui_port: 8123
 hitchhiker_exposed_ports:
-  - "{{ homeassistant_port }}:8123"
-  - "{{ hitchhiker_homekit_ports }}"
+  - "{{ hitchhiker_exposed_ui_port }}:{{ hitchhiker_exposed_ui_port }}"
+  - "{{ hitchhiker_homekit_port }}:{{ hitchhiker_homekit_port }}"
 
-homeassistant_components: []
-homeassistant_port: 9090
-homeassistant_name: Admin User
-homeassistant_username: admin
-homeassistant_password: admin
+hitchhiker_components: []
+hitchhiker_port: 9090
+hitchhiker_admin_name: Admin User
+hitchhiker_admin_username: admin
+hitchhiker_admin_password: admin
 

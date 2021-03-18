@@ -4,3 +4,14 @@ valid_hitchhiker_types:
   - homeassistant
 
 auth_code_regex: ^.*"auth_code". "(.*)?".*$
+
+hitchhiker_full_set: False
+
+hitchhiker_build_from:
+  homeassistant: "homeassistant/{{ hitchhiker_build_arch }}-base-python:3.8-alpine3.12"
+
+hitchhiker_storage:
+  homeassistant:
+    config: "{{ hitchhiker_config.storage.config }}:/config"
+    internal: "{{ hitchhiker_config.storage.internal is defined | ternary(hitchhiker_config.storage.internal ~ ':/config/.storage', None) }}"
+    public: "{{ hitchhiker_config.storage.public != '' | ternary(hitchhiker_config.storage.public ~ ':/config/www', None) }}"

@@ -1,0 +1,35 @@
+---
+
+- name: Validate type of Hitchhiker
+  assert:
+    that: hitchhiker_type in valid_hitchhiker_types
+    success_msg: "Valid Hitchhiker Type: {{ hitchhiker_type }}."
+    fail_msg: "Invalid Hitchhiker Type: {{ hitchhiker_type }}, valid options are {{ valid_hitchhiker_types | join(', ') }}."
+
+- name: Validate ui port for Hitchhiker
+  assert:
+    that: (hitchhiker_exposed_ui_port | int) in range(0, 65353)
+    success_msg: "Valid Hitchhiker UI Port: {{ hitchhiker_exposed_ui_port }}."
+    fail_msg: "Invalid Hitchiker UI Port: {{ hitchhiker_exposed_ui_port }}, valid options are between 0 and 65353."
+
+- name: Validate configuration directory of Hitchhiker
+  assert:
+    that: hitchhiker_integration_config_dir is directory
+    success_msg: "Valid Hitchhiker Config Directory: {{ hitchhiker_integration_config_dir }}."
+    fail_msg: "Invalide Hitchhiker Config Directory: {{ hitchhiker_integration_config_dir }}."
+
+- name: Validate internal storage directory of Hitchhiker
+  assert:
+    that: hitchhiker_internal_storage_dir is directory
+    success_msg: "Valid Hitchhiker Internal Storage Directory: {{ hitchhiker_internal_storage_dir }}."
+    fail_msg: "Invalide Hitchhiker Internal Storage Directory: {{ hitchhiker_internal_storage_dir }}."
+  when:
+    - hitchhiker_internal_storage_dir is defined
+
+- name: Validate public storage directory of Hitchhiker
+  assert:
+    that: hitchhiker_public_storage_dir is directory
+    success_msg: "Valid Hitchhiker Public Storage Directory: {{ hitchhiker_public_storage_dir }}."
+    fail_msg: "Invalide Hitchhiker Public Storage Directory: {{ hitchhiker_public_storage_dir }}."
+  when:
+    - hitchhiker_public_storage_dir is defined
