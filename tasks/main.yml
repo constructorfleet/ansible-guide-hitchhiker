@@ -25,7 +25,7 @@
         config: "{{ hitchhiker_integration_config_dir }}"
         public: "{{ hitchhiker_public_storage_dir | default(None) }}"
     hitchhiker_default_build_args:
-      BUILD_FROM: "{{ hitchhiker_build_from }}"
+      BUILD_FROM: "{{ hitchhiker_build_from[hitchhiker_type] }}"
       LOADER_VERSION: "{{ hitchhiker_base_version }}"
       BUILD_ARCH: "{{ hitchhiker_build_arch }}"
       COMPONENTS: "{{ hitchhiker_components | default([]) | join('\n') }}"
