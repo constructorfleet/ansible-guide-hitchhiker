@@ -52,7 +52,7 @@
   loop:
     - "{{ hitchhiker_config.storage.config | default(None) }}"
     - "{{ hitchhiker_config.storage.internal | default(None) }}"
-    - "{{ hitchhiker_config.storage.public | default(None) }}"
+    - "{{ hitchhiker_config.storage.public | default(hitchhiker_config.storage.config~'/public') }}"
   loop_control:
     loop_var: path
   when:
