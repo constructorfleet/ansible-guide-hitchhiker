@@ -91,6 +91,10 @@
     hitchhiker_url: '{{ hitchhiker_uri_scheme }}://{{ ansible_fqdn }}:{{ hitchhiker_config.ui_port }}'
     hitchhiker_url_schemeless: '{{ ansible_fqdn }}:{{ hitchhiker_config.ui_port }}'
 
+- name: On-board a Home-Assistant integration
+  import_tasks: homeassistant/onboarding.yml
+  when:
+    - (hitchhiker_type | lower) == 'homeassistant'
 
 
 
