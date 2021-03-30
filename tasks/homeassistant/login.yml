@@ -8,7 +8,7 @@
     body_format: form-urlencoded
     body:
       client_id: "{{ client_id }}"
-      type: authorize
+      type: "authorize"
       redirect_url: "{{ client_id }}"
       handler: ["homeassistant", None]
     headers:
