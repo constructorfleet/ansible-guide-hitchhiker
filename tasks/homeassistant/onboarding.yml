@@ -2,7 +2,7 @@
 
 - name: Wait for the container to start
   uri:
-    url: '{{ hitchhiker_url }}/api/onboarding'
+    url: '{{ hitchhiker_config.url.external }}/api/onboarding'
     status_code: 200
     method: GET
     headers:
