@@ -8,6 +8,8 @@
     hitchhiker_config:
       type: "{{ hitchhiker_type }}"
       name: "{{ hitchhiker_name }}"
+      username: "{{ hitchhiker_admin_username }}"
+      password: "{{ hitchhiker_admin_password | replace('\n', '') }}"
       timezone: "{{ hitchhiker_timezone | default(None) }}"
       exposed_ports: "{{ (hitchhiker_exposed_ports | default([])) + [hitchhiker_exposed_ui_port~':'~8123] }}"
       ui_port: "{{ hitchhiker_exposed_ui_port | int }}"

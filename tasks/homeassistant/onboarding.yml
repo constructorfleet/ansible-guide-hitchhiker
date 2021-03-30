@@ -22,8 +22,8 @@
     create_user_payload:
       client_id: "{{ hitchhiker_url }}/"
       name: "{{ homeassistant_name | default('admin')}}"
-      username: "{{ hitchhiker_url_schemeless | default('admin')}}"
-      password: "{{ hitchhiker_url_schemeless | replace('\n', '') }}"
+      username: "{{ hitchhiker_config.username | default('admin')}}"
+      password: "{{ hitchhiker_config.passowrd | replace('\n', '') }}"
       language: en
 
 - name: Create Home-Assistant admin user
