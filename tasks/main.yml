@@ -83,13 +83,13 @@
 - name: Wait for container to start
   wait_for:
     host: '{{ ansible_fqdn }}'
-    port: '{{ hitchhiker_config.homeassistant_port | int }}'
+    port: '{{ hitchhiker_config.ui_port | int }}'
     timeout: 45
 
 - name: Set hitchhiker url fact
   set_fact:
-    hitchhiker_url: '{{ hitchhiker_uri_scheme }}://{{ ansible_fqdn }}{{ hitchhiker_config.exposed_ports :{{ homeassistant_port }}'
-    hitchhiker_url_schemeless: '{{ ansible_fqdn }}:{{ homeassistant_port }}'
+    hitchhiker_url: '{{ hitchhiker_uri_scheme }}://{{ ansible_fqdn }}:{{ hitchhiker_config.ui_port }}'
+    hitchhiker_url_schemeless: '{{ ansible_fqdn }}:{{ hitchhiker_config.ui_port }}'
 
 
 
