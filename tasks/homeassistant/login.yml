@@ -9,7 +9,7 @@
     body:
       client_id: "{{ client_id }}"
       type: "authorize"
-      redirect_uri: "{{ hitchhiker_config.url.public }}"
+      redirect_uri: "{{ hitchhiker_config.url.external }}"
       handler:
        - ("homeassistant", None)
     headers:
