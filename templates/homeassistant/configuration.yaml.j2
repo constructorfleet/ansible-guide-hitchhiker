@@ -12,7 +12,6 @@ homeassistant:
   time_zone: "{{ hitchhiker_config.timezone }}"
 {% endif %}
 
-{% endif %}
 
 logger:
   default: '{{ default_log_level | default("DEBUG") }}'
