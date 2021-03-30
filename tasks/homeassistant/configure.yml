@@ -35,8 +35,9 @@
         options:
           tag: "{{ hitchhiker_config.name }}"
 
-- name: Set fact for docker container
+- name: Set facts for later tasks
   set_fact:
+    client_id: "{{ hitchhiker_url }}/"
     docker_containers: |
       {
         "hitchhiker_{{ hitchhiker_config.name }}": {{ integration_container }}
@@ -53,3 +54,5 @@
     src: homeassistant/configuration.yaml.j2
     dest: "{{ hitchhiker_config.storage.config }}/configuration.yaml"
   register: configuration_file
+
+-

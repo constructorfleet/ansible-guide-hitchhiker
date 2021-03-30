@@ -14,38 +14,13 @@
   retries: 60
   delay: 1
 
-- debug:
-    var: onboarding_status
-
-- name: Set user creation payload fact
-  set_fact:
-    create_user_payload:
-      client_id: "{{ hitchhiker_url }}/"
-      name: "{{ homeassistant_name | default('admin')}}"
-      username: "{{ hitchhiker_config.username | default('admin')}}"
-      password: "{{ hitchhiker_config.password | replace('\n', '') }}"
-      language: en
-
-- name: Create Home-Assistant admin user
-  uri:
-    url: '{{ hitchhiker_url }}/api/onboarding/users'
-    method: POST
-    headers:
-      Host: "{{ hitchhiker_url_schemeless }}"
-      Origin: "{{ hitchhiker_url_schemeless }}"
-    body_format: raw
-    body: '{{ create_user_payload | to_json }}'
-    return_content: yes
-  register: user_onboarding
-
-- name: Set authorization code fact
-  set_fact:
-    authorization_code: '{{ user_onboarding.content | regex_replace(auth_code_regex, "\1") }}'
+- name: Log in to hitchhiker
+  include_tasks: login.yml
 
 - name: Set token creation payload fact
   set_fact:
     token_creation_payload:
-      client_id: "{{ hitchhiker_url }}/"
+      client_id: "{{ client_id }}"
       code: '{{ authorization_code }}'
       grant_type: authorization_code
 
@@ -57,7 +32,10 @@
       Host: "{{ hitchhiker_url_schemeless }}"
       Origin: "{{ hitchhiker_url_schemeless }}"
 #    body_format: json
-    body: "{{ token_creation_payload | to_json }}"
+    body:
+      client_id: "{{ client_id }}"
+      refresh_token: "{{ hitchhiker_refresh_token }}"
+      grant_type: refresh_token
     return_content: yes
   register: refresh_token
 
