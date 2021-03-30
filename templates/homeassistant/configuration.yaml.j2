@@ -11,11 +11,7 @@ homeassistant:
 {% if hitchhiker_config.timezone is defined %}
   time_zone: "{{ hitchhiker_config.timezone }}"
 {% endif %}
-{% if hitchhiker_config.storage.public is defined %}
-  allowlist_external_dirs:
-{% for public_path in hitchhiker_config.storage.public %}
-    - {{ public_path }}
-{% endfor %}
+
 {% endif %}
 
 logger:

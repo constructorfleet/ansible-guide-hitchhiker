@@ -5,7 +5,7 @@
     hitchhiker_default_container_mounts:
       - "{{ hitchhiker_config.storage.config }}:/config"
       - "{{ hitchhiker_config.storage.internal is defined | ternary(hitchhiker_config.storage.internal ~ ':/config/.storage', None) }}"
-      - "{{ hitchhiker_config.storage.public is defined | ternary(hitchhiker_config.storage.public ~ ':/config/www', None) }}"
+      - "{{ hitchhiker_config.storage.public is defined | ternary([hitchhiker_config.storage.public ~ ':/config/www'], None) }}"
       - /etc/localtime:/etc/localtime:ro
     docker_build_images:
       basehitchhiker:
