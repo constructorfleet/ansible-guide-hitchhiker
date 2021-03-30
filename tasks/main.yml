@@ -9,7 +9,7 @@
       type: "{{ hitchhiker_type }}"
       name: "{{ hitchhiker_name }}"
       timezone: "{{ hitchhiker_timezone | default(None) }}"
-      exposed_ports: "{{ (hitchhiker_exposed_ports | default([])) }}"
+      exposed_ports: "{{ (hitchhiker_exposed_ports | default([])) + [hitchhiker_exposed_ui_port~':'~8123] }}"
       ui_port: "{{ hitchhiker_exposed_ui_port | int }}"
       network_mode: "{{ hitchhiker_network_mode | default('bridge') }}"
       networks: "{{ hitchhiker_neworks | default(None) }}"
