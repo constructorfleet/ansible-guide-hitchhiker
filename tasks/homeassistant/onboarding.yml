@@ -56,7 +56,7 @@
     headers:
       Host: "{{ hitchhiker_url_schemeless }}"
       Origin: "{{ hitchhiker_url_schemeless }}"
-    body_format: form-urlencoded
+#    body_format: form-urlencoded
     body: "{{ token_creation_payload }}"
     return_content: yes
   register: refresh_token
