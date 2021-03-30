@@ -37,7 +37,7 @@
 
 - name: Set facts for later tasks
   set_fact:
-    client_id: "{{ hitchhiker_url }}/"
+    client_id: "{{ hitchhiker_config.url.external }}/"
     docker_containers: |
       {
         "hitchhiker_{{ hitchhiker_config.name }}": {{ integration_container }}
