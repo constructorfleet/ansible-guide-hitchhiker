@@ -5,7 +5,7 @@
     url: "{{ hitchhiker_config.url.external }}/auth/login_flow"
     status_code: 200
     method: POST
-    body_format: form-urlencode
+    body_format: form-urlencoded
     body:
       client_id: "{{ client_id }}"
       type: authorize
@@ -34,7 +34,7 @@
     url: '{{ hitchhiker_config.url.external }}/auth/login_flow/{{ flow_id }}'
     status_code: 200
     method: POST
-    body_format: form-urlencode
+    body_format: form-urlencoded
     body:
       client_id: "{{ client_id }}"
       handler: ("homeassistant", None)

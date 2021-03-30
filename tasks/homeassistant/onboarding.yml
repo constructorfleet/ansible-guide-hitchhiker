@@ -31,7 +31,7 @@
     headers:
       Host: "{{ hitchhiker_url_schemeless }}"
       Origin: "{{ hitchhiker_url_schemeless }}"
-#    body_format: json
+#    body_format: form-urlencoded
     body:
       client_id: "{{ client_id }}"
       refresh_token: "{{ hitchhiker_refresh_token }}"
