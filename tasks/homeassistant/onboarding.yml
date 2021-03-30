@@ -2,12 +2,12 @@
 
 - name: Wait for the container to start
   uri:
-    url: '{{ homeassistant_url }}/api/onboarding'
+    url: '{{ hitchhiker_url }}/api/onboarding'
     status_code: 200
     method: GET
     headers:
-      Host: "{{ homeassistant_url_schemeless }}"
-      Origin: "{{ homeassistant_url_schemeless }}"
+      Host: "{{ hitchhiker_url_schemeless }}"
+      Origin: "{{ hitchhiker_url_schemeless }}"
     return_content: yes
   register: onboarding_status
   until: onboarding_status.status == 200
@@ -20,19 +20,19 @@
 - name: Set user creation payload fact
   set_fact:
     create_user_payload:
-      client_id: "{{ homeassistant_url }}/"
+      client_id: "{{ hitchhiker_url }}/"
       name: "{{ homeassistant_name | default('admin')}}"
-      username: "{{ homeassistant_username | default('admin')}}"
-      password: "{{ homeassistant_password | replace('\n', '') }}"
+      username: "{{ hitchhiker_url_schemeless | default('admin')}}"
+      password: "{{ hitchhiker_url_schemeless | replace('\n', '') }}"
       language: en
 
 - name: Create Home-Assistant admin user
   uri:
-    url: '{{ homeassistant_url }}/api/onboarding/users'
+    url: '{{ hitchhiker_url }}/api/onboarding/users'
     method: POST
     headers:
-      Host: "{{ homeassistant_url_schemeless }}"
-      Origin: "{{ homeassistant_url_schemeless }}"
+      Host: "{{ hitchhiker_url_schemeless }}"
+      Origin: "{{ hitchhiker_url_schemeless }}"
     body_format: raw
     body: '{{ create_user_payload | to_json }}'
     return_content: yes
@@ -45,17 +45,17 @@
 - name: Set token creation payload fact
   set_fact:
     token_creation_payload:
-      client_id: "{{ homeassistant_url }}/"
+      client_id: "{{ hitchhiker_url }}/"
       code: '{{ authorization_code }}'
       grant_type: authorization_code
 
 - name: Get refresh token for admin user
   uri:
-    url: '{{ homeassistant_url }}/api/auth/token'
+    url: '{{ hitchhiker_url }}/api/auth/token'
     method: POST
     headers:
-      Host: "{{ homeassistant_url_schemeless }}"
-      Origin: "{{ homeassistant_url_schemeless }}"
+      Host: "{{ hitchhiker_url_schemeless }}"
+      Origin: "{{ hitchhiker_url_schemeless }}"
     body_format: raw
     body: "{{ token_creation_payload | to_json }}"
     return_content: yes
