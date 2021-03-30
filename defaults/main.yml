@@ -11,8 +11,8 @@ hitchhiker_altitude: 0
 # hitchhiker_internal_url: http://localhost/
 
 #hitchhiker_configure_homekit: False
-hitchhiker_external_url: http://deepthought.home.prettybaked.com:9090
-hitchhiker_internal_url: http://deepthought.home.prettybaked.com:9090
+hitchhiker_external_url: "http://deepthought.home.prettybaked.com:{{ hitchhiker_exposed_ui_port }}"
+hitchhiker_internal_url: "http://deepthought.home.prettybaked.com:{{ hitchhiker_exposed_ui_port }}"
 
 hitchhiker_integration_config_dir: /tmp/config
 
