@@ -2,7 +2,7 @@
 
 - name: Start login process
   uri:
-    url: "{{ hitchhiker_url }}/auth/login_flow"
+    url: "{{ hitchhiker_config.url.public }}/auth/login_flow"
     status_code: 200
     method: POST
     body_format: form-urlencode
@@ -31,13 +31,13 @@
 
 - name: Get authorization code
   uri:
-    url: '{{ hitchhiker_url }}/auth/login_flow/{{ flow_id }}'
+    url: '{{ hitchhiker_config.url.public }}/auth/login_flow/{{ flow_id }}'
     status_code: 200
     method: POST
     body_format: form-urlencode
     body:
-      client_id:
-      handler: ("home")
+      client_id: "{{ client_id }}"
+      handler: ("homeassistant", None)
     headers:
       Host: "{{ hitchhiker_url_schemeless }}"
       Origin: "{{ hitchhiker_url_schemeless }}"
