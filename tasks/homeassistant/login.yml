@@ -9,8 +9,9 @@
     body:
       client_id: "{{ client_id }}"
       type: "authorize"
-      redirect_url: "{{ client_id }}"
-      handler: ["homeassistant", None]
+      redirect_uri: "{{ hitchhiker.url.public }}"
+      handler:
+       - ("homeassistant", None)
     headers:
       Host: "{{ hitchhiker_url_schemeless }}"
       Origin: "{{ hitchhiker_url_schemeless }}"
