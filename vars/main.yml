@@ -14,4 +14,4 @@ hitchhiker_storage:
   homeassistant:
     config: "{{ hitchhiker_config.storage.config }}:/config"
     internal: "{{ hitchhiker_config.storage.internal is defined | ternary(hitchhiker_config.storage.internal ~ ':/config/.storage', None) }}"
-    public: "{{ hitchhiker_config.storage.external != '' | ternary(hitchhiker_config.storage.external ~ ':/config/www', None) }}"
+    external: "{{ hitchhiker_config.storage.external != '' | ternary(hitchhiker_config.storage.external ~ ':/config/www', None) }}"
