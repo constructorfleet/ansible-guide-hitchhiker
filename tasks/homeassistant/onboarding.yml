@@ -51,7 +51,7 @@
 
 - name: Get refresh token for admin user
   uri:
-    url: '{{ hitchhiker_url }}/api/auth/token'
+    url: '{{ hitchhiker_url }}/auth/token'
     method: POST
     headers:
       Host: "{{ hitchhiker_url_schemeless }}"
